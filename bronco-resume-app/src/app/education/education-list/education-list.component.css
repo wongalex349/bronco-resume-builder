@@ -1,8 +1,36 @@
 :host {
-  display: block;
-  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
 }
 
 .info-text {
   text-align: center;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+a {
+  margin: auto;
+  background-color: rgb(24, 24, 24);
+}
+
+.bottom-button {
+  margin-bottom: 50px;
+  margin-top: 25px;
+  color: white;
+  background-color: rgb(70, 103, 124);
+}
+
+mat-expansion-panel {
+  margin-bottom: auto;
+  margin-left: 10%;
+  margin-right: 10%;
+  color: white;
+  background-color: rgb(52, 53, 53);
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
 }

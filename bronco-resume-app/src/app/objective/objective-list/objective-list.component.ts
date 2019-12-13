@@ -5,12 +5,11 @@ import { ObjectiveStatement } from 'src/app/objective/objectiveStatement.model';
 import { ObjectiveStatementService } from '../objectveStatement.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
-@Component ({
+@Component({
   selector: 'app-objective-list',
   templateUrl: './objective-list.component.html',
   styleUrls: ['./objective-list.component.css']
 })
-
 export class ObjectiveListComponent implements OnInit, OnDestroy {
   objectiveStatement: ObjectiveStatement;
   userIsAuthenticated = false;
@@ -18,20 +17,28 @@ export class ObjectiveListComponent implements OnInit, OnDestroy {
   private objectiveStatementSub: Subscription;
   private authStatusSub: Subscription;
 
-  constructor(public objectiveStatementService: ObjectiveStatementService, private authService: AuthService) {}
+  constructor(
+    public objectiveStatementService: ObjectiveStatementService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.objectiveStatementService.getObjectiveStatement();
-    this.objectiveStatementSub = this.objectiveStatementService.getObjectiveStatementUpdateListener()
+    this.objectiveStatementSub = this.objectiveStatementService
+      .getObjectiveStatementUpdateListener()
       .subscribe((objectiveStatement: ObjectiveStatement) => {
         this.isLoading = false;
         this.objectiveStatement = objectiveStatement;
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
-    this.authStatusSub = this.authService.getAuthStatusListener()
-      .subscribe( isAuthenticated => {
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.isLoading = false;
       });
+    this.isLoading = false;
   }
 
   ngOnDestroy() {
